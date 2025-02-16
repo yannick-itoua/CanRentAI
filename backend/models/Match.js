@@ -7,4 +7,4 @@ const MatchSchema = new mongoose.Schema({
   
 }, { timestamps: true });
 
-module.exports = mongoose.model('User', MatchSchema);
+module.exports = mongoose.model('Match', MatchSchema);

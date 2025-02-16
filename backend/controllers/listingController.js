@@ -1,42 +1,42 @@
 const mongoose = require("mongoose");
-const Listing= require ("../models/Listing");
+const Listing = require("../models/Listing");
 
 // @desc Get all listings
-const getListing= sync (req, res) => {
+const getListing = async (req, res) => {
   try {
     const { search } = req.query;
     let query = {};
 
-
     if (search) {
-      query.title = { $regex: new RegExp(`^${search}`, "i") }; 
+      query.title = { $regex: new RegExp(`^${search}`, "i") };
     }
 
-    
-    const listing = await Listing.find(query);
-    
-    res.json(listing);
+    const listings = await Listing.find(query);
+    res.json(listings);
   } catch (error) {
-    console.error("Error fetching listing:", error);
+    console.error("Error fetching listings:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-
-const addListing = (req, res) => {
-  const { title,price,date,rating} = req.body;
-  const listing = await Listing.create({ title,price,date,rating });
-  res.status(201).json(listing);
+const addListing = async (req, res) => {
+  try {
+    const { title, price, date, rating } = req.body;
+    const listing = await Listing.create({ title, price, date, rating });
+    res.status(201).json(listing);
+  } catch (error) {
+    console.error("Error adding listing:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
-
-const updateListing = (req, res) => {
+const updateListing = async (req, res) => {
   try {
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
       return res.status(404).json({ message: "Listing not found" });
     }
-    Object.assign(movie, req.body);
+    Object.assign(listing, req.body);
     const updatedListing = await listing.save();
     res.json(updatedListing);
   } catch (error) {
@@ -45,8 +45,7 @@ const updateListing = (req, res) => {
   }
 };
 
-
-const deleteListing =(req, res) => {
+const deleteListing = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -61,16 +60,14 @@ const deleteListing =(req, res) => {
       return res.status(404).json({ message: "Listing not found" });
     }
 
-    await Movie.deleteOne({ _id: id });
+    await Listing.deleteOne({ _id: id });
 
     console.log("Listing deleted successfully:", id);
     res.json({ message: "Listing deleted successfully" });
-
   } catch (error) {
-    console.error("Error deleting Listing:", error);
+    console.error("Error deleting listing:", error);
     res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 };
 
-
-module.exports = { getListing,addListing,updateListing,deleteListing };
+module.exports = { getListing, addListing, updateListing, deleteListing };

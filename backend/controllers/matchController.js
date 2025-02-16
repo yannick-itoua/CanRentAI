@@ -14,12 +14,5 @@ const findMatches = async (minPrice, maxPrice) => {
     }
 };
 
-// Example usage
-(async () => {
-    const minPrice = 100;
-    const maxPrice = 500;
-    const matches = await findMatches(minPrice, maxPrice);
-    console.log("Matches found:", matches);
-})();
 
 module.exports = { findMatches };
