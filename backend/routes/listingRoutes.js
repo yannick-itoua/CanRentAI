@@ -7,7 +7,16 @@ const {
   deleteListing
 } = require('../controllers/listingController');
 
-router.route('/').get(getListing).post(addListing);
-router.route('/:id').put(updateListing).delete(deleteListing);
+// Route to get all listings
+router.get('/', getListing);
+
+// Route to add a new listing
+router.post('/', addListing);
+
+// Route to update a listing by ID
+router.put('/:id', updateListing);
+
+// Route to delete a listing by ID
+router.delete('/:id', deleteListing);
 
 module.exports = router;
