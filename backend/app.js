@@ -12,6 +12,7 @@ var connectDB = require('./config/db');
 var authRouter = require('./routes/authRoutes');
 var listingRouter = require('./routes/listingRoutes');
 var matchRouter = require('./routes/matchRoutes');
+var rentalRouter = require('./routes/rentalapiRoutes');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', authRouter);
 app.use('/listings', listingRouter);
 app.use('/matches', matchRouter);
+app.use('/rental', rentalRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

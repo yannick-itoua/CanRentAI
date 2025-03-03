@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
 const ListingSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  price:{type: Number,required:true},
-  date:{type:Date,default:Date.now},
-  rating:{type:Number,required:true},
-
-  
+  formattedAddress: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  zipCode: { type: String, required: true },
+  propertyType: { type: String, required: true },
+  price: { type: Number, required: true },
+  bedrooms: { type: Number, required: true },
+  bathrooms: { type: Number, required: true },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Listing', ListingSchema);

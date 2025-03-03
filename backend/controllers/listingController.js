@@ -8,7 +8,7 @@ const getListing = async (req, res) => {
     let query = {};
 
     if (search) {
-      query.title = { $regex: new RegExp(`^${search}`, "i") };
+      query.formattedAddress = { $regex: new RegExp(`^${search}`, "i") };
     }
 
     const listings = await Listing.find(query);
@@ -21,8 +21,8 @@ const getListing = async (req, res) => {
 
 const addListing = async (req, res) => {
   try {
-    const { title, price, date, rating } = req.body;
-    const listing = await Listing.create({ title, price, date, rating });
+    const { formattedAddress, city, state, zipCode, propertyType, price, bedrooms, bathrooms } = req.body;
+    const listing = await Listing.create({ formattedAddress, city, state, zipCode, propertyType, price, bedrooms, bathrooms });
     res.status(201).json(listing);
   } catch (error) {
     console.error("Error adding listing:", error);
