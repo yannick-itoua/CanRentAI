@@ -21,8 +21,8 @@ const getListing = async (req, res) => {
 
 const addListing = async (req, res) => {
   try {
-    const { formattedAddress, city, state, zipCode, propertyType, price, bedrooms, bathrooms } = req.body;
-    const listing = await Listing.create({ formattedAddress, city, state, zipCode, propertyType, price, bedrooms, bathrooms });
+    const { formattedAddress, city, state, zipCode, homeType, price, bedrooms, bathrooms, livingArea, imgSrc, detailUrl } = req.body;
+    const listing = await Listing.create({ formattedAddress, city, state, zipCode, homeType, price, bedrooms, bathrooms, livingArea, imgSrc, detailUrl });
     res.status(201).json(listing);
   } catch (error) {
     console.error("Error adding listing:", error);

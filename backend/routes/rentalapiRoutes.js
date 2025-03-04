@@ -1,14 +1,15 @@
 const express = require('express');
-const { getAllRentalOffers } = require('../services/rentalapi');
+const { getZillowData } = require('../services/rentalapi');
 
 const router = express.Router();
 
-router.get('/rental-offers', async (req, res) => {
+router.get('/zillow-data', async (req, res) => {
   try {
-    const rentalOffers = await getAllRentalOffers();
-    res.status(200).json(rentalOffers);
+    const { location, homeStatus, sort, listingType } = req.query;
+    const zillowData = await getZillowData(location, homeStatus, sort, listingType);
+    res.status(200).json(zillowData);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch rental offers' });
+    res.status(500).json({ error: 'Failed to fetch Zillow data' });
   }
 });
 
